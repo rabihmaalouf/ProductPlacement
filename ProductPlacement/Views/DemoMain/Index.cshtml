@@ -1,0 +1,63 @@
+﻿@model ProductPlacement.Models.FileModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "DemoMain", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <br />
+            <span>Choose a Video File </span>
+            <br />
+            @Html.TextBoxFor(m => m.PostedFile, new { type = "file", id = "file", name = "file" }) 
+            @Html.ValidationMessageFor(m => m.PostedFile, "", new { @class = "error" })
+            <br /><br />
+            <span>Set the Brand Names to Look for</span>
+            <br />
+            @Html.TextBoxFor(m => m.BrandName1, new { placeholder = "Brand Name 1" }) 
+            @Html.ValidationMessageFor(m => m.BrandName1, "", new { @class = "error" })
+            <br />
+            @Html.TextBoxFor(m => m.BrandName2, new { placeholder = "Brand Name 2" })
+            <br />
+            @Html.TextBoxFor(m => m.BrandName3, new { placeholder = "Brand Name 3" })
+            <br /><br />
+            <span>Set an Optional Rate Card to Estimate the Cost of Appearance </span>
+            <br />
+            @Html.TextBoxFor(m => m.CostOf1Second, new { placeholder = "Cost of 1 Second" })
+            @Html.ValidationMessageFor(m => m.CostOf1Second, "", new { @class = "error" })
+            <br />
+            <hr />
+            <input type="submit" value="Evaluate" />
+            <br />
+            <span style="color:green">@Html.Raw(ViewBag.Message)</span>
+        }
+    </div>
+
+
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+</html>
+
