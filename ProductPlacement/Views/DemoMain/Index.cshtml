@@ -3,8 +3,11 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    ViewBag.Title = "Demo";
 }
+
+<h2>@ViewBag.Title.</h2>
+<h3>Upload your Video, Mention your Brands, to Start Evaluating their Appearance.</h3>
 
 
 <!DOCTYPE html>
@@ -31,12 +34,12 @@
             <br />
             <span>Choose a Video File </span>
             <br />
-            @Html.TextBoxFor(m => m.PostedFile, new { type = "file", id = "file", name = "file" }) 
+            @Html.TextBoxFor(m => m.PostedFile, new { type = "file", id = "file", name = "file" })
             @Html.ValidationMessageFor(m => m.PostedFile, "", new { @class = "error" })
             <br /><br />
             <span>Set the Brand Names to Look for</span>
             <br />
-            @Html.TextBoxFor(m => m.BrandName1, new { placeholder = "Brand Name 1" }) 
+            @Html.TextBoxFor(m => m.BrandName1, new { placeholder = "Brand Name 1" })
             @Html.ValidationMessageFor(m => m.BrandName1, "", new { @class = "error" })
             <br />
             @Html.TextBoxFor(m => m.BrandName2, new { placeholder = "Brand Name 2" })
