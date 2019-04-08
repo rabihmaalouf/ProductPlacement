@@ -209,6 +209,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="branddetector.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -218,30 +219,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="jssor\jssor.slider-27.5.0.min.js" />
-    <Content Include="jssor\tab-slider\021-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\021.jpg" />
-    <Content Include="jssor\tab-slider\022-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\022.jpg" />
-    <Content Include="jssor\tab-slider\023-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\023.jpg" />
-    <Content Include="jssor\tab-slider\024-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\024.jpg" />
-    <Content Include="jssor\tab-slider\025-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\025.jpg" />
-    <Content Include="jssor\tab-slider\026-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\026.jpg" />
-    <Content Include="jssor\tab-slider\027-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\027.jpg" />
-    <Content Include="jssor\tab-slider\028-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\028.jpg" />
-    <Content Include="jssor\tab-slider\029-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\029.jpg" />
-    <Content Include="jssor\tab-slider\030-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\030.jpg" />
-    <Content Include="jssor\tab-slider\031-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\031.jpg" />
-    <Content Include="jssor\tab-slider\032-s200x100.jpg" />
-    <Content Include="jssor\tab-slider\032.jpg" />
     <Content Include="jssor\tab-slider\spin.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
