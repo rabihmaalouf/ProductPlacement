@@ -246,6 +246,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="CloudVision\google_cloud_credential_for_logo_detection-nowting-bd7886019869.json" />
+    <None Include="Properties\PublishProfiles\BrandGrab - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
