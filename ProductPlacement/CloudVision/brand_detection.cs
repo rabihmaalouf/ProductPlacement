@@ -8,13 +8,14 @@ using Newtonsoft.Json;
 using System.Configuration;
 using ProductPlacement.Models;
 using System.Web.Hosting;
+using System.Web;
 
 namespace ProductPlacement.CloudVision
 {
     public class brand_detection
     {
 
-        public static EvaluationResults f_main(String ar_path_for_uploading_videos, String ar_working_folder_name, String ar_uploaded_video_name, String[] ar_brand_names, double ar_cost_of_1_second)
+        public static void f_main(String ar_path_for_uploading_videos, String ar_working_folder_name, String ar_uploaded_video_name, String[] ar_brand_names, double ar_cost_of_1_second)
         {
             //===initializing google API key
             string ls_google_app_credentials_path_and_filename = HostingEnvironment.MapPath("~/CloudVision/google_cloud_credential_for_logo_detection-nowting-bd7886019869.json");
@@ -42,8 +43,7 @@ namespace ProductPlacement.CloudVision
                 //======================================================================================================
                 //======================================================================================================
                 li_counter++;
-                //if (li_counter != 26) { continue; } //=== temp code to process only 1 frame
-                if (li_counter != 26 && li_counter!= 27 && li_counter != 28) { continue; } //=== temp code to process only 3 frames
+                if (li_counter != 1 && li_counter!= 2 && li_counter != 3) { continue; } //=== temp code to process only the first 3 frames
                 //======================================================================================================
                 //======================================================================================================
 
@@ -57,7 +57,9 @@ namespace ProductPlacement.CloudVision
 
             EvaluationResults l_EvaluationResults = f_get_evaluationresults(l_result_folder_name, ar_brand_names);
 
-            return l_EvaluationResults;
+            HttpContext.Current.Session["results"] = l_EvaluationResults;
+
+            return;
         }
 
 

@@ -2,7 +2,7 @@
 
 @using ProductPlacement.Models
 @{
-    EvaluationResults l_evaluationResults = (EvaluationResults)ViewData["param_evaluationResults"];
+    EvaluationResults l_evaluationResults = Session["results"] as EvaluationResults;
 
     string l_result_path_URL = l_evaluationResults.ResultPathURL;
 
@@ -210,18 +210,13 @@
     }
 
     <script>
-function f_OnChange(val) {
-    var l_Result = '@Url.Action("Result", "Result")';
-    var l_js_evaluationResults = @Html.Raw(Json.Encode(l_evaluationResults));
-    l_js_evaluationResults.BrandIndexToShow = val;
+        function f_OnChange(val) {
+            var l_Result = '@Url.Action("Result", "Result")';
 
-    var l_EvaluationResults_serialized = JSON.stringify(l_js_evaluationResults);
-
-    var url = new URL(window.location.href);
-    url.searchParams.set('ar_EvaluationResults_serialized', l_EvaluationResults_serialized);
-    window.location.href = url.href;
-
-}
+            var url = new URL(window.location.href);
+            url.searchParams.set('ar_brandindextoshow', val);
+            window.location.href = url.href;
+        }
 
     </script>
 

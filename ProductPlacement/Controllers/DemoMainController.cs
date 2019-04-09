@@ -67,16 +67,9 @@ public class DemoMainController : Controller
         FileModel.PostedFile.SaveAs(l_uploaded_file_path_and_name);
         ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", l_fileName);
 
-        EvaluationResults l_EvaluationResults = brand_detection.f_main(l_path_for_uploading_videos, l_working_folder_name, l_fileName, l_arrays_BrandNames, l_cost_of_1_second);
-        
-        //EvaluationResults param_evaluationResults = new EvaluationResults();
-        //param_evaluationResults.ResultPath = ls_result_folder_name;
-        //param_evaluationResults.array_ImageGallery = l_array_ImageGallery;
+        brand_detection.f_main(l_path_for_uploading_videos, l_working_folder_name, l_fileName, l_arrays_BrandNames, l_cost_of_1_second);
 
-        //TempData["temp_param_evaluationResults"] = param_evaluationResults;
+        return RedirectToAction("Result", "Result", new { ar_brandindextoshow = 0 });
 
-        string l_EvaluationResults_serialized = JsonConvert.SerializeObject(l_EvaluationResults);
-
-        return RedirectToAction("Result", "Result" , new { ar_EvaluationResults_serialized = l_EvaluationResults_serialized });
     }
 }
