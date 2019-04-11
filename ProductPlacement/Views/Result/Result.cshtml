@@ -1,20 +1,14 @@
-﻿@model List<ProductPlacement.Models.ImageGallery>
-
-@using ProductPlacement.Models
-@{
-    EvaluationResults l_evaluationResults = Session["results"] as EvaluationResults;
-
-    string l_result_path_URL = l_evaluationResults.ResultPathURL;
-
-    ImageGallery[] l_array_ImageGallery = l_evaluationResults.array_ImageGallery;
-}
-
+﻿@model ProductPlacement.Models.EvaluationResults
 
 
 <!-- #region Jssor Slider Begin -->
 <!-- Generator: Jssor Slider Maker -->
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/jssor/jssor.slider-27.5.0.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <script type="text/javascript">
     jssor_1_slider_init = function () {
 
@@ -88,122 +82,18 @@
     };
 </script>
 <style>
-    /*jssor slider loading skin spin css*/
-    .jssorl-009-spin img {
-        animation-name: jssorl-009-spin;
-        animation-duration: 1.6s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-    }
-
-    @@keyframes jssorl-009-spin {
-        from {
-            transform: rotate(0deg);
-        }
-
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    /*jssor slider arrow skin 051 css*/
-    .jssora051 {
-        display: block;
-        position: absolute;
-        cursor: pointer;
-    }
-
-        .jssora051 .a {
-            fill: none;
-            stroke: #fff;
-            stroke-width: 360;
-            stroke-miterlimit: 10;
-        }
-
-        .jssora051:hover {
-            opacity: .8;
-        }
-
-        .jssora051.jssora051dn {
-            opacity: .5;
-        }
-
-        .jssora051.jssora051ds {
-            opacity: .3;
-            pointer-events: none;
-        }
-
-    /*jssor slider thumbnail skin 111 css*/
-    .jssort111 .p {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 200px;
-        height: 100px;
-        background-color: #000;
-    }
-
-        .jssort111 .p img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-    .jssort111 .t {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-        opacity: .45;
-    }
-
-    .jssort111 .p:hover .t {
-        opacity: .8;
-    }
-
-    .jssort111 .pav .t, .jssort111 .pdn .t, .jssort111 .p:hover.pdn .t {
-        opacity: 1;
-    }
-
-    .jssort111 .ti {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        width: 100%;
-        height: 28px;
-        line-height: 28px;
-        text-align: center;
-        font-size: 12px;
-        color: #fff;
-        background-color: rgba(0,0,0,.3)
-    }
-
-    img.thumbnail {
-        width: 200px;
-        height: 100px;
-    }
-
-
-    .jssort111 .pav .ti, .jssort111 .pdn .ti, .jssort111 .p:hover.pdn .ti {
-        color: #000;
-        background-color: rgba(255,255,255,.6);
-    }
 </style>
 
 <div>
     @{
         List<SelectListItem> l_BrandList = new List<SelectListItem>();
-        int li_BrandsCount = l_array_ImageGallery.Length;
+        int li_BrandsCount = Model.BrandNames.Length;
         for (int i = 0; i < li_BrandsCount; i++)
         {
             SelectListItem l_BrandItem = new SelectListItem();
-            l_BrandItem.Text = l_array_ImageGallery[i].BrandName;
-            l_BrandItem.Value = l_array_ImageGallery[i].BrandName;
-            if (i == l_evaluationResults.BrandIndexToShow) { l_BrandItem.Selected = true; };
+            l_BrandItem.Text = Model.BrandNames[i];
+            l_BrandItem.Value = Model.BrandNames[i];
+            if (i == Model.BrandIndexToShow) { l_BrandItem.Selected = true; };
             l_BrandList.Add(l_BrandItem);
         }
         @Html.DropDownList("brandList", l_BrandList, new { @onchange = "f_OnChange(this.selectedIndex )" })
@@ -233,17 +123,19 @@
 
         @{
 
-            int li_FilesCount = l_array_ImageGallery[l_evaluationResults.BrandIndexToShow].ImageFileNames.Length;
+            string l_BrandNameToShow = Model.BrandNames[Model.BrandIndexToShow];
+            int li_FilesCount = Model.array_DataResult.Length;
             for (int i = 0; i < li_FilesCount; i++)
             {
-                @:<div>
-                    <img data-u="image" src=" @l_evaluationResults.ResultPathURL/@l_array_ImageGallery[l_evaluationResults.BrandIndexToShow].BrandName/@l_array_ImageGallery[l_evaluationResults.BrandIndexToShow].ImageFileNames[i]" />
-                    @:<div data-u="thumb">
-                        <img data-u="thumb" src=" @l_evaluationResults.ResultPathURL/@l_array_ImageGallery[l_evaluationResults.BrandIndexToShow].BrandName/@l_array_ImageGallery[l_evaluationResults.BrandIndexToShow].ImageFileNames[i]" />
-                        @:<div class="ti">Slide Description </div></div></div>
-
-
-                    }
+                if (Model.array_DataResult[i].BrandName == l_BrandNameToShow)
+                {
+                    @:<div>
+                        <img data-u="image" src=" @Model.ResultPathURL/@l_BrandNameToShow/@Model.array_DataResult[i].FrameRef" />
+                        @:<div data-u="thumb">
+                            <img data-u="thumb" src=" @Model.ResultPathURL/@l_BrandNameToShow/@Model.array_DataResult[i].FrameRef" />
+                            @:<div class="ti">Slide Description </div></div></div>
+                }
+            }
         }
 
     </div>
@@ -270,3 +162,49 @@
 <script type="text/javascript">jssor_1_slider_init();</script>
 <!-- #endregion Jssor Slider End -->
 
+<div id="chart_div" style="width: 100%; height: 250px; border: 2px solid black ">
+</div>
+
+
+<script type="text/javascript">
+
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawBasic);
+
+    var l_js_evaluationResults = @Html.Raw(Json.Encode(Model));
+
+    function drawBasic() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Second');
+        data.addColumn('number', 'Appearance');
+
+        var l_BrandNameToShow_ = l_js_evaluationResults.BrandNames[l_js_evaluationResults.BrandIndexToShow];
+        var li_FilesCount_ = l_js_evaluationResults.array_DataResult.length;
+        for (i = 0; i < li_FilesCount_; i++) {
+            if (l_js_evaluationResults.array_DataResult[i].BrandName == l_BrandNameToShow_) {
+                data.addRows([[l_js_evaluationResults.array_DataResult[i].SecondRef, l_js_evaluationResults.array_DataResult[i].TotalOccurences]])
+            };
+        }
+
+        var options = {
+            title: 'Relative Appearance by Second',
+            hAxis: {
+                title: 'Seconds',
+                format: '#',
+                viewWindow: {
+                    min: [0],
+                    max: [10]
+                }
+            },
+            vAxis: {
+                title: 'Count of Appearacne'
+            }
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
+
+</script>

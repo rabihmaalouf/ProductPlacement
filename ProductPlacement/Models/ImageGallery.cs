@@ -8,18 +8,22 @@ using System.Web;
 
 namespace ProductPlacement.Models
 {
-    public class ImageGallery
+    public class DataResult
     {
-        public string BrandName;
-        public string[] ImageFileNames { get; set; }
+        public string BrandName { get; set; }
+        public string FrameRef { get; set; }
+        public int SecondRef { get; set; }
+        public int TotalOccurences { get; set; }
+        public double Cost { get; set; }
     }
 
     public class EvaluationResults
     {
         public string ResultPath;
         public string ResultPathURL;
+        public string[] BrandNames;
         public int BrandIndexToShow;
-        public ImageGallery[] array_ImageGallery;
+        public DataResult[] array_DataResult;
     }
 }
 

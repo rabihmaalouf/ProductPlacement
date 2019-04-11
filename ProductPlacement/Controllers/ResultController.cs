@@ -13,7 +13,7 @@ namespace ProductPlacement.Controllers
             var l_EvaluationResults = Session["results"] as EvaluationResults;
             l_EvaluationResults.BrandIndexToShow = ar_brandindextoshow;
 
-            return View("Result");
+            return View(l_EvaluationResults);
         }
     }
 }
