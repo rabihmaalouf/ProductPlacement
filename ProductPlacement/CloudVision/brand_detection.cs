@@ -28,8 +28,7 @@ namespace ProductPlacement.CloudVision
             Mat l_frame = new Mat();
             Mat l_frame_with_boundarie = new Mat();
 
-            String l_result_folder_name = Path.Combine(ar_working_folder_name, "Results");
-            String ls_result_folder_path = Path.Combine(ar_path_for_uploading_videos, l_result_folder_name);
+            String ls_result_folder_path = Path.Combine(ar_path_for_uploading_videos, ar_working_folder_name);
             Directory.CreateDirectory(ls_result_folder_path);
 
             List<DataResult> l_list_DataResult = new List<DataResult>();
@@ -60,14 +59,21 @@ namespace ProductPlacement.CloudVision
                     DataResult l_current_data_result = f_hilight_brand_and_save_frame(l_frame, l_response, l_brand_name, ar_cost_of_1_second, ls_result_folder_path, "pic_" + li_counter.ToString(), li_counter);
                     l_list_DataResult.Add(l_current_data_result);
                 }
+
+            }
+
+            //===write result into file
+            using (StreamWriter l_file = File.AppendText(Path.Combine(ls_result_folder_path, "Results.txt")))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(l_file, l_list_DataResult);
             }
 
 
             string l_domainnamefordownloadingresults = ConfigurationManager.AppSettings["domainnamefordownloadingresults"];
 
             EvaluationResults l_EvaluationResults = new EvaluationResults();
-            l_EvaluationResults.ResultPath = l_result_folder_name;
-            l_EvaluationResults.ResultPathURL = l_domainnamefordownloadingresults + "/" + l_result_folder_name.Replace("\\", "/");
+            l_EvaluationResults.ResultPathURL = l_domainnamefordownloadingresults + "/" + ar_working_folder_name;
             l_EvaluationResults.BrandNames = ar_brand_names;
             l_EvaluationResults.BrandIndexToShow = 0;
             l_EvaluationResults.array_DataResult = l_list_DataResult.ToArray();
@@ -175,13 +181,6 @@ namespace ProductPlacement.CloudVision
             l_current_data_result.TotalOccurences = li_count_of_brand_occurences_found;
             l_current_data_result.Cost = li_count_of_brand_occurences_found * ar_cost_of_1_second;
             l_data_result.Add(l_current_data_result);
-
-            //===write result into file
-            using (StreamWriter l_file = File.AppendText(Path.Combine(ar_result_path, "Results.txt")))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(l_file, l_data_result);
-            }
 
             //===return DataResult
             return l_current_data_result;

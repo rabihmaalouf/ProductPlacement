@@ -1,0 +1,45 @@
+﻿@using System.Data
+@model DataTable
+
+@{
+    //ViewBag.Title = "Pre-Analysed Samples";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Pre-Analysed Samples</h2>
+
+<table>
+    <thead>
+        <tr>
+            @foreach (DataColumn col in Model.Columns)
+            {
+                if (col.ColumnName == "workingfolder") { continue; }
+                <th>
+                    @col.ColumnName &nbsp &nbsp &nbsp
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Rows)
+        {
+        <tr>
+            @foreach (DataColumn col in Model.Columns)
+            {
+                if (col.ColumnName == "workingfolder") { continue; }
+                if (col.ColumnName == "Samples")
+                {
+                    <td>@Html.ActionLink((string)row[col.ColumnName], "Sample", "Result", new { ar_resultfolder_name = row["workingfolder"] }, null) </td>
+                }
+                else
+                {
+                    <td>@row[col.ColumnName] &nbsp &nbsp &nbsp </td>
+                }
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+

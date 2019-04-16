@@ -19,7 +19,6 @@ namespace ProductPlacement.Models
 
     public class EvaluationResults
     {
-        public string ResultPath;
         public string ResultPathURL;
         public string[] BrandNames;
         public int BrandIndexToShow;

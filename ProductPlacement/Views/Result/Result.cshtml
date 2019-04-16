@@ -84,7 +84,9 @@
 <style>
 </style>
 
-<div>
+<span> &nbsp; &nbsp; &nbsp;</span>
+
+<div align="center">
     @{
         List<SelectListItem> l_BrandList = new List<SelectListItem>();
         int li_BrandsCount = Model.BrandNames.Length;
@@ -112,6 +114,8 @@
 
 </div>
 
+<span> &nbsp; &nbsp; &nbsp;</span>
+
 
 <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:480px;overflow:hidden;visibility:hidden;">
     <!-- Loading Screen -->
@@ -129,11 +133,14 @@
             {
                 if (Model.array_DataResult[i].BrandName == l_BrandNameToShow)
                 {
+                    TimeSpan l_time = TimeSpan.FromSeconds(@Model.array_DataResult[i].SecondRef);
+                    string l_time_in_h_m_s = l_time.ToString(@"hh\:mm\:ss");
+
                     @:<div>
                         <img data-u="image" src=" @Model.ResultPathURL/@l_BrandNameToShow/@Model.array_DataResult[i].FrameRef" />
                         @:<div data-u="thumb">
                             <img data-u="thumb" src=" @Model.ResultPathURL/@l_BrandNameToShow/@Model.array_DataResult[i].FrameRef" />
-                            @:<div class="ti">Slide Description </div></div></div>
+                            @:<div class="ti"> @l_time_in_h_m_s </div></div></div>
                 }
             }
         }
@@ -162,7 +169,22 @@
 <script type="text/javascript">jssor_1_slider_init();</script>
 <!-- #endregion Jssor Slider End -->
 
-<div id="chart_div" style="width: 100%; height: 250px; border: 2px solid black ">
+
+<style>
+    hr {
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 1px;
+    }
+</style>
+
+<hr>  
+
+<div id="chart_div" style="width: 100%; height: 250px">
 </div>
 
 
@@ -181,9 +203,11 @@
 
         var l_BrandNameToShow_ = l_js_evaluationResults.BrandNames[l_js_evaluationResults.BrandIndexToShow];
         var li_FilesCount_ = l_js_evaluationResults.array_DataResult.length;
+        var li_videoduration_in_seconds = 0
         for (i = 0; i < li_FilesCount_; i++) {
             if (l_js_evaluationResults.array_DataResult[i].BrandName == l_BrandNameToShow_) {
                 data.addRows([[l_js_evaluationResults.array_DataResult[i].SecondRef, l_js_evaluationResults.array_DataResult[i].TotalOccurences]])
+                li_videoduration_in_seconds ++
             };
         }
 
@@ -194,7 +218,7 @@
                 format: '#',
                 viewWindow: {
                     min: [0],
-                    max: [10]
+                    max: [li_videoduration_in_seconds]
                 }
             },
             vAxis: {
