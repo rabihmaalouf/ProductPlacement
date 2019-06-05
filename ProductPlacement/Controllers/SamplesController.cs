@@ -28,6 +28,7 @@ namespace ProductPlacement.Controllers
                 SheetData sheetData = workSheet.GetFirstChild<SheetData>();
                 IEnumerable<Row> rows = sheetData.Descendants<Row>();
 
+
                 foreach (Cell cell in rows.ElementAt(0))
                 {
                     dt.Columns.Add(GetCellValue(spreadSheetDocument, cell));
